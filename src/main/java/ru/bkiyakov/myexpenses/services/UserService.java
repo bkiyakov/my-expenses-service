@@ -71,18 +71,45 @@ public class UserService {
 
     public boolean deleteExpense(String userId, String expenseId){
         User user = userRepository.findById(userId).orElse(null);
-        if (user == null) return false;
+        if (user == null || user.getExpenseById(expenseId) == null) return false;
 
         Expense expense = user.getExpenseById(expenseId);
-        if (expense == null) return false;
 
-        if (user.deleteExpense(expense)) {
-            userRepository.save(user);
-            return true;
+        if (!user.deleteExpense(expense)) {
+            return false;
         }
 
-        return false;
+        userRepository.save(user);
+        return true;
     }
 
-    //TODO delExp, delCat, changeInfo, editExpense, editCategory
+    public boolean deleteCategory(String userId, String categoryId){
+        User user = userRepository.findById(userId).orElse(null);
+        if (user == null || user.getCategoryById(categoryId) == null) return false;
+
+        Category category = user.getCategoryById(categoryId);
+
+        if (!user.deleteCategory(category)) {
+            return false;
+        }
+
+        userRepository.save(user);
+        return true;
+    }
+
+    public boolean editExpense(String userId, Expense expense){
+        User user = userRepository.findById(userId).orElse(null);
+        if (user == null || user.editExpense(expense) == null) return false;
+
+        return true;
+    }
+
+    public boolean editCategory(String userId, Category category){
+        User user = userRepository.findById(userId).orElse(null);
+        if (user == null || user.editCategory(category) == null) return false;
+
+        return true;
+    }
+
+    //TODO delExp, delCat, changeInfo
 }

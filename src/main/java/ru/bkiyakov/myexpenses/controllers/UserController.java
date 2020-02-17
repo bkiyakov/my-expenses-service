@@ -49,4 +49,11 @@ public class UserController {
     public void deleteExpense(@PathVariable String userId, @PathVariable String expenseId){
         userService.deleteExpense(userId, expenseId);
     }
+
+    @DeleteMapping("/{userId}/category/{categoryId}")
+    public void deleteCategory(@PathVariable String userId, @PathVariable String categoryId){
+        userService.deleteCategory(userId, categoryId);
+    }
+
+    //TODO ко всем void-ам применить HTTP STATUS
 }

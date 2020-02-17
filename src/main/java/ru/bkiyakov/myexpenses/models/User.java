@@ -91,7 +91,31 @@ public class User {
         return null;
     }
 
-    //TODO changeInfo, editExpense, editCategory
+    public Expense editExpense(Expense expense){
+        String expenseId = expense.getExpenseId();
+
+        if (expenses.remove(expense)){
+            expenses.add(expense);
+
+            return getExpenseById(expenseId);
+        }
+
+        return null;
+    }
+
+    public Category editCategory(Category category){
+        String categoryId = category.getCategoryId();
+
+        if (categories.remove(category)){
+            categories.add(category);
+
+            return getCategoryById(categoryId);
+        }
+
+        return null;
+    }
+
+    //TODO changeInfo
 
     @Override
     public String toString() {
